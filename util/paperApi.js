@@ -1,12 +1,12 @@
 
-import {
-  PAPER_WALLET_CONTRACT_ID,
-} from "../const/yourDetails";
-
 const PAPER_WALLET_AUTH_KEY = process.env.PAPER_WALLET_AUTH_KEY;
 if (!PAPER_WALLET_AUTH_KEY) {
   throw new Error("You need to add an PAPER_WALLET_AUTH_KEY environment variable.");
 }
+const PAPER_WALLET_CONTRACT_ID = process.env.PAPER_WALLET_CONTRACT_ID;
+  if (!PAPER_WALLET_CONTRACT_ID) {
+    throw new Error("You need to add an PAPER_WALLET_CONTRACT_ID environment variable.");
+  }
 
 export async function getClientSecretFromPaper(address, email) {
   

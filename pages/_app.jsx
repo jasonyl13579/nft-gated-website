@@ -1,13 +1,12 @@
 import { ThirdwebProvider, metamaskWallet, paperWallet } from "@thirdweb-dev/react";
 import Head from "next/head";
-import { domainName, PAPER_WALLET_CLIENT_ID } from "../const/yourDetails";
 import "../styles/globals.css";
+import App from "next/app";
 
 // This is the chain your dApp will work on.
 const activeChain = "mumbai";
 
-function MyApp({ Component, pageProps }) {
-  //console.log(process.env);
+function MyApp({ Component, pageProps, domainName, paperWalletClientId}) {
   return (
     <ThirdwebProvider
       activeChain={activeChain}
@@ -17,7 +16,7 @@ function MyApp({ Component, pageProps }) {
       }}
       supportedWallets={[
         paperWallet({
-            clientId:PAPER_WALLET_CLIENT_ID
+            clientId:paperWalletClientId
         }),
         metamaskWallet()
     ]}
@@ -35,5 +34,21 @@ function MyApp({ Component, pageProps }) {
     </ThirdwebProvider>
   );
 }
+MyApp.getInitialProps = async (context) => {
+  const ctx = await App.getInitialProps(context);
+  const DOMINE_NAME = process.env.DOMINE_NAME;
+  if (!DOMINE_NAME) {
+    throw new Error("You need to add an DOMINE_NAME environment variable.");
+  }
+  const PAPER_WALLET_CLIENT_ID = process.env.PAPER_WALLET_CLIENT_ID;
+  if (!PAPER_WALLET_CLIENT_ID) {
+    throw new Error("You need to add an PAPER_WALLET_CLIENT_ID environment variable.");
+  }
+  
+
+  return { ...ctx, domainName: DOMINE_NAME, paperWalletClientId: PAPER_WALLET_CLIENT_ID };
+};
 
 export default MyApp;
+
+

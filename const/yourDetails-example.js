@@ -10,6 +10,3 @@ export const minimumBalance = 2;
 // Token ID for ERC-1155 tokens
 export const erc1155TokenId = 0;
 
-export const PAPER_WALLET_CONTRACT_ID=""
-
-export const PAPER_WALLET_CLIENT_ID=""

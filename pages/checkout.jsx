@@ -11,19 +11,19 @@ export default function Checkout({url}) {
   const emailQuery = usePaperWalletUserEmail();
   const router = useRouter();
   const wallet = useWallet();
-  console.log(wallet?.walletId);
+
   useEffect(() => {
     if (emailQuery.isSuccess && router.query.email != emailQuery.data) {
       console.log(router.query);
       router.push("/checkout?email=" + emailQuery.data);
     }
-  }, [emailQuery.isSuccess, emailQuery.isLoading]);
+  }, [emailQuery.isSuccess, emailQuery.isLoading, router, emailQuery.data]);
   
   return (
     <div className={styles.container}>
       <h1 className={styles.h1}>NFT Checkout</h1>
       <p className={styles.explain}>
-        We detected that you don't have any NFT <br></br>
+        We detected that you do not have any NFT <br></br>
         Buy our membership with simple flow!
         After buying you can access our{" "}
         <Link className={styles.purple} href="/">
@@ -80,7 +80,7 @@ export async function getServerSideProps(context) {
   } 
   //const response = await getClientSecretFromPaper(user.address, context.query?.email);
   const response = await getOneTimeCheckoutLink(user.address, context.query?.email);
-  console.log(response);
+  //console.log(response);
   if (response.error) {
     throw new Error("Error with Paper.");
   }
