@@ -36,9 +36,10 @@ function MyApp({ Component, pageProps, domainName, paperWalletClientId}) {
 }
 MyApp.getInitialProps = async (context) => {
   const ctx = await App.getInitialProps(context);
-  const DOMINE_NAME = process.env.DOMINE_NAME;
+  const DOMINE_NAME = process.env.NEXT_PUBLIC_URL;
+  console.log(DOMINE_NAME);
   if (!DOMINE_NAME) {
-    throw new Error("You need to add an DOMINE_NAME environment variable.");
+    throw new Error("You need to add an NEXT_PUBLIC_URL environment variable.");
   }
   const PAPER_WALLET_CLIENT_ID = process.env.PAPER_WALLET_CLIENT_ID;
   if (!PAPER_WALLET_CLIENT_ID) {
