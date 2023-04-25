@@ -17,6 +17,7 @@ export default function Home() {
     }
   }, [isLoading, isLoggedIn, router]);
 
+
   return (
     <div className={styles.container}>
       <h1 className={styles.h1}>Restricted Access Page</h1>
@@ -34,7 +35,6 @@ export default function Home() {
 // This gets called on every request
 export async function getServerSideProps(context) {
   const user = await getUser(context.req);
-
   if (!user) {
     return {
       redirect: {
@@ -58,13 +58,12 @@ export async function getServerSideProps(context) {
 
   // Check to see if the user has an NFT
   const hasNft = await checkBalance(sdk, user.address);
-
   // If they don't have an NFT, redirect them to the login page
   if (!hasNft) {
     console.log("User", user.address, "doesn't have an NFT! Redirecting...");
     return {
       redirect: {
-        destination: "/login",
+        destination: "/checkout",
         permanent: false,
       },
     };

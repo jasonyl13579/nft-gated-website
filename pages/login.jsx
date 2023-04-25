@@ -1,12 +1,9 @@
-import { ConnectWallet, useAddress, Web3Button } from "@thirdweb-dev/react";
-import { isFeatureEnabled } from "@thirdweb-dev/sdk";
+import { ConnectWallet, useAddress} from "@thirdweb-dev/react";
 import Link from "next/link";
-import { contractAddress } from "../const/yourDetails";
 import styles from "../styles/Home.module.css";
 
 export default function Login() {
   const address = useAddress(); // Get the user's address
-
   return (
     <div className={styles.container}>
       <h1 className={styles.h1}>Auth - NFT Gated Content</h1>
@@ -39,13 +36,22 @@ export default function Login() {
       <>
         {address ? (
           <p>
-            Welcome, {address?.slice(0, 6)}...{address?.slice(-4)}
+            Welcome, {address?.slice(0, 6)}...{address?.slice(-4)} <br></br>    
           </p>
         ) : (
           <p>Please connect your wallet to continue.</p>
         )}
-
         <ConnectWallet accentColor="#F213A4" />
+
+        {address && (
+          <Link href="/">
+            <button  
+              className={styles.secondaryButton}         
+            >
+              Visit main page after signing
+            </button>
+          </Link>
+        )}
       </>
     </div>
   );

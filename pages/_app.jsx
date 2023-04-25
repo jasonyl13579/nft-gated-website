@@ -1,13 +1,13 @@
-import { ThirdwebProvider } from "@thirdweb-dev/react";
+import { ThirdwebProvider, metamaskWallet, paperWallet } from "@thirdweb-dev/react";
 import Head from "next/head";
-import ThirdwebGuideFooter from "../components/ThirdwebGuideFooter";
-import { domainName } from "../const/yourDetails";
+import { domainName, PAPER_WALLET_CLIENT_ID } from "../const/yourDetails";
 import "../styles/globals.css";
 
 // This is the chain your dApp will work on.
 const activeChain = "mumbai";
 
 function MyApp({ Component, pageProps }) {
+  //console.log(process.env);
   return (
     <ThirdwebProvider
       activeChain={activeChain}
@@ -15,6 +15,12 @@ function MyApp({ Component, pageProps }) {
         domain: domainName,
         authUrl: "/api/auth",
       }}
+      supportedWallets={[
+        paperWallet({
+            clientId:PAPER_WALLET_CLIENT_ID
+        }),
+        metamaskWallet()
+    ]}
     >
       <Head>
         <title>NFT Gated Website</title>
@@ -25,7 +31,7 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <Component {...pageProps} />
-      <ThirdwebGuideFooter />
+      {/* <ThirdwebGuideFooter /> */}
     </ThirdwebProvider>
   );
 }
